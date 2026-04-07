@@ -8,10 +8,9 @@ export const SITE_RECIPE: SiteRecipe = {
   footerTemplate: 'columns-footer',
   motionPack: 'minimal',
   primaryTask: 'listing',
-  enabledTasks: ['listing', 'classified', 'profile'],
+  enabledTasks: ['listing'],
   taskTemplates: {
     listing: 'listing-directory',
-    classified: 'classified-market',
     profile: 'profile-business',
   },
   manualOverrides: {
