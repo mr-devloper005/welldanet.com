@@ -12,6 +12,8 @@ export const storageKeys = {
   articleLikes: 'nexus-article-likes',
   articleSaves: 'nexus-article-saves',
   listingSaves: 'nexus-listing-saves',
+  taskPostCardBookmarks: 'nexus-task-post-card-bookmarks',
+  taskPostCardLikes: 'nexus-task-post-card-likes',
   adSaves: 'nexus-ad-saves',
   theme: 'nexus-theme',
   settings: 'nexus-settings',

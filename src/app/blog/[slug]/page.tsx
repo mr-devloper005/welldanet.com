@@ -1,24 +1,17 @@
-import { TaskDetailPage } from "@/components/tasks/task-detail-page";
-import { buildPostMetadata, buildTaskMetadata } from "@/lib/seo";
-import { fetchTaskPostBySlug, fetchTaskPosts } from "@/lib/task-data";
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { buildPageMetadata } from "@/lib/seo";
+import { SITE_CONFIG } from "@/lib/site-config";
 
-export const revalidate = 3;
-
-export async function generateStaticParams() {
-  const posts = await fetchTaskPosts("comment", 50);
-  if (!posts.length) {
-    return [{ slug: "placeholder" }];
-  }
-  return posts.map((post) => ({ slug: post.slug }));
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata({
+    path: "/blog",
+    title: `Guide | ${SITE_CONFIG.name}`,
+    description: `Listing guides and tips on ${SITE_CONFIG.name}.`,
+  });
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const post = await fetchTaskPostBySlug("comment", resolvedParams.slug);
-  return post ? await buildPostMetadata("comment", post) : await buildTaskMetadata("comment");
-}
-
-export default async function BlogCommentDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  return <TaskDetailPage task="comment" slug={resolvedParams.slug} />;
+export default async function BlogSlugRedirect({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  redirect(`/listings/${slug}`);
 }

@@ -6,9 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 const roles = [
-  { title: "Product Designer", location: "Remote", type: "Full-time", level: "Mid" },
-  { title: "Frontend Engineer", location: "New York, NY", type: "Full-time", level: "Senior" },
-  { title: "Community Lead", location: "Remote", type: "Part-time", level: "Mid" },
+  { title: "Listings operations specialist", location: "Remote", type: "Full-time", level: "Mid" },
+  { title: "Frontend engineer (directory)", location: "Remote", type: "Full-time", level: "Senior" },
+  { title: "Local partnerships lead", location: "Hybrid", type: "Full-time", level: "Mid" },
 ];
 
 const benefits = [
@@ -22,7 +22,7 @@ export default function CareersPage() {
   return (
     <PageShell
       title="Careers"
-      description={`Help us build the future of community-driven publishing at ${SITE_CONFIG.name}.`}
+      description={`Join ${SITE_CONFIG.name} and help grow a listings-first local directory—product, data quality, and partnerships.`}
       actions={
         <Button asChild>
           <Link href="/contact">Apply Now</Link>
@@ -51,7 +51,7 @@ export default function CareersPage() {
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold text-foreground">Why {SITE_CONFIG.name}</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              We are building a product that helps people discover and share the best knowledge on the web.
+              We are focused on accurate business listings, fast search, and tools owners use every week.
             </p>
             <div className="mt-4 space-y-2 text-sm text-muted-foreground">
               {benefits.map((benefit) => (

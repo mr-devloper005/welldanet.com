@@ -10,6 +10,11 @@ const WWW_HOST = CANONICAL_HOST ? `www.${CANONICAL_HOST.replace(/^www\./, '')}` 
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0'])
 
 export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname
+  if (pathname === '/dashboard' || pathname === '/dashboard/') {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+
   const forwardedHost = request.headers.get('x-forwarded-host')
   const hostHeader = request.headers.get('host')
   const rawHost = forwardedHost || hostHeader || request.nextUrl.host

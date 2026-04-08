@@ -2,76 +2,85 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Independent reading platform',
+    tagline: 'Discover trusted listings',
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
+    tagline: 'Directory discovery, listings, and local insight',
   },
   hero: {
-    badge: 'Latest stories and visuals',
-    title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
+    badge: 'Directory & discovery',
+    title: ['Find the right listing', 'in minutes—not hours.'],
     description:
-      'Explore fresh articles, image-led posts, and discoverable content across the platform through a calmer and clearer browsing experience.',
+      'Scan categories, compare listings, and jump into details with a layout built for directory browsing—not endless feeds.',
     primaryCta: {
-      label: 'Read latest stories',
-      href: '/articles',
+      label: 'Explore listings',
+      href: '/listings',
     },
     secondaryCta: {
-      label: 'Explore visuals',
-      href: '/image-sharing',
+      label: 'Submit listing',
+      href: '/create/listing',
     },
-    searchPlaceholder: 'Search stories, visuals, listings, and more',
+    searchPlaceholder: 'Search listings, categories, places, and more',
     focusLabel: 'Focus',
-    featureCardBadge: 'latest cover rotation',
-    featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
+    featureCardBadge: 'featured rotation',
+    featureCardTitle: 'Fresh listings shape what visitors see first.',
     featureCardDescription:
-      'Recent images and stories stay at the center of the experience without changing any core platform behavior.',
+      'Trending and recommended rows stay visual and scannable while the rest of the platform keeps working as before.',
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
+      title: 'Listings, categories, and local discovery',
       description:
-        'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
+        'Browse a modern listing directory with categories, recommendations, and fast scanning across businesses and services.',
+      openGraphTitle: 'Listings, categories, and local discovery',
       openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+        'Explore listings by category, save favorites locally, and move quickly from discovery to detail pages.',
+      keywords: ['listings', 'business directory', 'local discovery', 'categories', 'submit listing'],
     },
-    introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introBadge: 'Listing-first platform',
+    introTitle: 'Built for scanning listings, categories, and clear next steps.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'This homepage foregrounds listings and category discovery so visitors can compare options, skim trust cues, and open detail pages without hunting through unrelated feeds.',
+      'Everything here is tuned for a single job: helping people find the right local business and helping owners keep their listing accurate.',
+      'Whether someone lands from search or a category link, the path stays short: browse, filter, open, contact or visit.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'Trending and recommended listing rows for faster scanning.',
+      'Category tabs and directory-style cards with clear metadata.',
+      'Strong CTAs for exploring all listings and submitting new ones.',
+      'Lightweight motion and CSS-first interactions for quick loads.',
     ],
     primaryLink: {
-      label: 'Browse articles',
-      href: '/articles',
+      label: 'All listings',
+      href: '/listings',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/image-sharing',
+      label: 'Submit a listing',
+      href: '/create/listing',
+    },
+    listify: {
+      trendingTitle: 'Trending listings',
+      recommendedTitle: 'Recommended for you',
+      directoriesTitle: 'Directory by category',
+      promoText:
+        'List your business where buyers already browse—clear categories, sharp cards, and a submission flow that stays familiar.',
+      ctaText: 'Open the full directory or add your listing in a few steps.',
+      footerText: 'Explore popular categories',
     },
   },
   cta: {
-    badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
+    badge: 'Grow your presence',
+    title: 'Ready to list or explore more?',
     description:
-      'Move between articles, image-led posts, listings, and resources through one clearer and more connected visual system.',
+      'Submit a listing to reach people browsing this directory, or continue exploring categories and curated rows.',
     primaryCta: {
-      label: 'Get Started Free',
-      href: '/register',
+      label: 'Submit listing',
+      href: '/create/listing',
     },
     secondaryCta: {
-      label: 'Contact Sales',
-      href: '/contact',
+      label: 'Explore listings',
+      href: '/listings',
     },
   },
   taskSectionHeading: 'Latest {label}',
@@ -84,8 +93,8 @@ export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'soci
     description: 'Read articles, stories, guides, and long-form posts across topics and interests.',
   },
   listing: {
-    title: 'Listings and discoverable pages',
-    description: 'Explore listings, services, brands, and structured pages organized for easier browsing.',
+    title: 'Business listings directory',
+    description: 'Find local businesses and services by category—hours, maps, photos, and contact info in one place.',
   },
   classified: {
     title: 'Classifieds and announcements',
@@ -114,16 +123,16 @@ export const taskIntroCopy: Record<
   { title: string; paragraphs: string[]; links: { label: string; href: string }[] }
 > = {
   listing: {
-    title: 'Listings, services, and structured pages',
+    title: 'Local business listings',
     paragraphs: [
-      'Explore listings, services, brands, and discoverable pages across categories. Each entry is organized to make browsing clearer and help visitors quickly understand what a post offers.',
-      'Listings connect naturally with articles, images, resources, and other content types so supporting information stays easy to reach from the same platform.',
-      'Browse by category to compare posts in context, discover related content, and move between formats without losing your place.',
+      'Browse businesses and services by category with clear hours, locations, photos, and contact details—built so visitors can compare options and open a listing in one click.',
+      'Every card is a directory entry: structured fields instead of mixed feeds, so search and filters stay predictable whether someone is on a phone or desktop.',
+      'Jump from the homepage into categories, scan recommended rows, or open the full directory when you want to search or narrow results further.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Explore classifieds', href: '/classifieds' },
-      { label: 'View profiles', href: '/profile' },
+      { label: 'All listings', href: '/listings' },
+      { label: 'Search', href: '/search' },
+      { label: 'Help center', href: '/help' },
     ],
   },
   article: {

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { SubmitListingLink } from '@/components/shared/submit-listing-link'
 import { siteContent } from '@/config/site.content'
 
 export function CTASection() {
@@ -26,10 +27,10 @@ export function CTASection() {
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="lg" asChild className="h-12 rounded-full bg-[#D5E7B5] px-7 text-sm font-semibold text-[#24161b] hover:bg-[#c5db9b]">
-                <Link href={siteContent.cta.primaryCta.href}>
+                <SubmitListingLink className="inline-flex items-center">
                   {siteContent.cta.primaryCta.label}
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </SubmitListingLink>
               </Button>
               <Button size="lg" variant="outline" asChild className="h-12 rounded-full border-white/20 bg-white/8 px-7 text-sm font-semibold text-white hover:bg-white/12 hover:text-white">
                 <Link href={siteContent.cta.secondaryCta.href}>{siteContent.cta.secondaryCta.label}</Link>
