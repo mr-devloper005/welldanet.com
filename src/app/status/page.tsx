@@ -3,21 +3,21 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 const services = [
-  { name: 'Web App', status: 'Operational' },
-  { name: 'API', status: 'Operational' },
-  { name: 'Media CDN', status: 'Operational' },
+  { name: 'Directory & search', status: 'Operational' },
+  { name: 'Listing pages & maps', status: 'Operational' },
+  { name: 'Media (photos)', status: 'Operational' },
 ]
 
 const incidents = [
-  { date: 'Mar 12, 2026', title: 'Delayed notifications', status: 'Resolved' },
-  { date: 'Feb 22, 2026', title: 'Search indexing lag', status: 'Resolved' },
+  { date: 'Mar 12, 2026', title: 'Slower listing search results', status: 'Resolved' },
+  { date: 'Feb 22, 2026', title: 'Category filter delay', status: 'Resolved' },
 ]
 
 export default function StatusPage() {
   return (
     <PageShell
       title="System Status"
-      description="Real-time uptime and service health."
+      description="Uptime for listing search, business pages, and media on the directory."
     >
       <div className="space-y-6">
         <div className="grid gap-4 md:grid-cols-3">

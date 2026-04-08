@@ -2,16 +2,16 @@
 import { Card, CardContent } from '@/components/ui/card'
 
 const sections = [
-  { title: 'Data We Collect', body: 'Account information, usage analytics, and content you submit.' },
-  { title: 'How We Use Data', body: 'To personalize your experience, improve search, and keep the platform secure.' },
-  { title: 'Your Choices', body: 'You can manage email preferences and delete your account at any time.' },
+  { title: 'Data we collect', body: 'Account details, listing content you submit (name, address, hours, photos), and usage data to run search and security.' },
+  { title: 'How we use data', body: 'To show and rank listings, prevent abuse, improve local search, and communicate about your business profile.' },
+  { title: 'Your choices', body: 'Update or remove listing information, manage email preferences, or delete your account at any time.' },
 ]
 
 export default function PrivacyPage() {
   return (
     <PageShell
       title="Privacy Policy"
-      description="How we collect, use, and protect your information."
+      description="How we handle information for accounts and business listings on our directory."
     >
       <Card className="border-border bg-card">
         <CardContent className="p-6 space-y-4">

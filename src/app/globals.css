@@ -4,13 +4,20 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --site-bg: #f8fafc;
+  --site-surface: #ffffff;
+  --site-text: #0f172a;
+  --site-muted: #64748b;
+  --site-primary: #0ea5e9;
+  --site-radius: 16px;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
   --background: oklch(0.985 0.006 84);
   --foreground: oklch(0.23 0.03 20);
   --card: oklch(0.992 0.004 84 / 0.96);
   --card-foreground: oklch(0.23 0.03 20);
   --popover: oklch(0.992 0.004 84 / 0.98);
   --popover-foreground: oklch(0.23 0.03 20);
-  --primary: oklch(0.41 0.15 10);
+  --primary: oklch(0.7 0.14 232);
   --primary-foreground: oklch(0.99 0.005 84);
   --secondary: oklch(0.95 0.02 85);
   --secondary-foreground: oklch(0.3 0.04 20);
@@ -251,7 +258,9 @@
 }
 
 
-body[data-site-shell="directory"] {
+body[data-site-shell="directory"],
+body[data-site-shell="listing-home"],
+body[data-site-shell="classified-home"] {
   background-image:
     radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 24%),
     radial-gradient(circle at top right, rgba(15, 23, 42, 0.08), transparent 22%),
@@ -370,6 +379,45 @@ body[data-nav-layout="sidebar-left"] header[data-mobile-nav="true"] {
 
 @media (min-width: 1280px) {
   body[data-nav-layout="sidebar-left"] header[data-mobile-nav="true"] {
+    display: none;
+  }
+}
+
+@layer components {
+  /* Single listing/directory canvas sitewide (replaces per-page bg-background). */
+  .site-shell {
+    min-height: 100vh;
+    color: rgb(15 23 42);
+    background-color: #f8fbff;
+    background-image:
+      radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.1), transparent 28%),
+      radial-gradient(circle at 100% 0%, rgba(15, 23, 42, 0.06), transparent 26%),
+      linear-gradient(180deg, #f8fbff 0%, #ffffff 48%, #f1f5f9 100%);
+  }
+
+  .site-container {
+    @apply mx-auto w-full max-w-[1536px];
+  }
+
+  .site-page-header {
+    @apply border-b border-slate-200/90 bg-white/90 text-slate-950 backdrop-blur-md;
+  }
+
+  .site-page-header-inner {
+    @apply mx-auto flex w-full max-w-[1536px] flex-col gap-6 px-4 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-6 lg:px-8;
+  }
+
+  .site-surface-card {
+    border-radius: var(--site-radius);
+    box-shadow: var(--shadow-soft);
+    @apply border border-slate-200/90 bg-white text-slate-950;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
 }

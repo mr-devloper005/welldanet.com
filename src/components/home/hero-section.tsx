@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ContentImage } from "@/components/shared/content-image";
 import { SITE_CONFIG, type TaskConfig } from "@/lib/site-config";
 import { siteContent } from "@/config/site.content";
+import { SubmitListingLink } from "@/components/shared/submit-listing-link";
 import { SITE_THEME } from "@/config/site.theme";
 
 const FALLBACK_IMAGE = "/placeholder.svg?height=1400&width=2400";
@@ -114,7 +115,7 @@ export function HeroSection({ images, tasks }: { images: string[]; tasks: TaskCo
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className={`rounded-full px-6 ${palette.secondary}`}>
-                <Link href={siteContent.hero.secondaryCta.href}>{siteContent.hero.secondaryCta.label}</Link>
+                <SubmitListingLink>{siteContent.hero.secondaryCta.label}</SubmitListingLink>
               </Button>
             </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Plus, Save } from "lucide-react";
@@ -179,10 +179,15 @@ export default function CreateTaskPage() {
 
   const [values, setValues] = useState<Record<string, string>>({});
   const [uploadingPdf, setUploadingPdf] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
+
+  useEffect(() => {
+    setAuthReady(true);
+  }, []);
 
   if (!taskConfig || !formConfig) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="site-shell">
         <NavbarShell />
         <main className="mx-auto max-w-3xl px-4 py-16 text-center">
           <h1 className="text-2xl font-semibold text-foreground">Task not available</h1>
@@ -197,6 +202,46 @@ export default function CreateTaskPage() {
     );
   }
 
+  const listingLoginNext = `/login?next=${encodeURIComponent("/create/listing")}`;
+  const listingRegisterNext = `/register?next=${encodeURIComponent("/create/listing")}`;
+
+  if (taskKey === "listing") {
+    if (!authReady) {
+      return (
+        <div className="site-shell">
+          <NavbarShell />
+          <main className="mx-auto max-w-4xl px-4 py-24 text-center text-sm text-muted-foreground">
+            Loading…
+          </main>
+        </div>
+      );
+    }
+    if (!user) {
+      return (
+        <div className="site-shell">
+          <NavbarShell />
+          <main className="mx-auto max-w-lg px-4 py-16 text-center">
+            <h1 className="text-2xl font-semibold text-foreground">Sign in to add a listing</h1>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              You need an account before you can create a listing. Sign in or register, then you&apos;ll be able to continue.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <Button asChild className="rounded-full">
+                <Link href={listingLoginNext}>Sign in</Link>
+              </Button>
+              <Button asChild variant="outline" className="rounded-full">
+                <Link href={listingRegisterNext}>Create account</Link>
+              </Button>
+            </div>
+            <Button variant="ghost" className="mt-6" asChild>
+              <Link href="/listings">Back to listings</Link>
+            </Button>
+          </main>
+        </div>
+      );
+    }
+  }
+
   const updateValue = (key: string, value: string) =>
     setValues((prev) => ({ ...prev, [key]: value }));
 
@@ -206,7 +251,7 @@ export default function CreateTaskPage() {
         title: "Sign in required",
         description: "Please sign in before creating content.",
       });
-      router.push("/login");
+      router.push(taskKey === "listing" ? listingLoginNext : "/login");
       return;
     }
 
@@ -271,7 +316,7 @@ export default function CreateTaskPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="site-shell">
       <NavbarShell />
       <main className="mx-auto max-w-4xl px-4 py-12">
         <div className="mb-8 flex items-center gap-3">

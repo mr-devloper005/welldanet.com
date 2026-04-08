@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command'
 import { useToast } from '@/components/ui/use-toast'
+import { useAuth } from '@/lib/auth-context'
+import { submitListingHref } from '@/components/shared/submit-listing-link'
 import { FileText, Plus, Tag, Bookmark, Settings, Search } from 'lucide-react'
 
 const quickLinks = [
@@ -23,6 +25,7 @@ const createActions = [
 export function CommandPalette() {
   const router = useRouter()
   const { toast } = useToast()
+  const { isAuthenticated } = useAuth()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -34,6 +37,12 @@ export function CommandPalette() {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
+  }, [])
+
+  useEffect(() => {
+    const openFromUi = () => setOpen(true)
+    window.addEventListener('toggle-command-palette', openFromUi)
+    return () => window.removeEventListener('toggle-command-palette', openFromUi)
   }, [])
 
   const allItems = useMemo(() => [...quickLinks, ...createActions], [])
@@ -63,7 +72,8 @@ export function CommandPalette() {
             <CommandItem
               key={item.href}
               onSelect={() => {
-                router.push(item.href)
+                const href = item.href === '/create/listing' ? submitListingHref(isAuthenticated) : item.href
+                router.push(href)
                 setOpen(false)
               }}
             >

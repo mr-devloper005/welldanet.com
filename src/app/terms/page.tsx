@@ -3,19 +3,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 const sections = [
-  { title: "Account Usage", body: "Keep your account secure and follow community guidelines." },
+  { title: "Accounts", body: "Keep login details secure. You are responsible for activity under your account, including listing updates." },
   {
-    title: "Content Ownership",
-    body: "You own the content you publish and grant the platform a license to display it.",
+    title: "Listing content",
+    body: "You represent that business information you submit is accurate. You grant us a license to display your listing in the directory and search results.",
   },
-  { title: "Acceptable Use", body: "No spam, harassment, or illegal content." },
+  { title: "Acceptable use", body: "No false listings, impersonation, spam, harassment, or illegal content. We may remove listings that violate these rules." },
 ];
 
 export default function TermsPage() {
   return (
     <PageShell
       title="Terms of Service"
-      description={`The rules and guidelines for using ${SITE_CONFIG.name}.`}
+      description={`Terms for using ${SITE_CONFIG.name} as a visitor or listing owner on our business directory.`}
     >
       <Card className="border-border bg-card">
         <CardContent className="space-y-4 p-6">

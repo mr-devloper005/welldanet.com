@@ -2,16 +2,16 @@
 import { Card, CardContent } from '@/components/ui/card'
 
 const sections = [
-  { title: 'Essential Cookies', body: 'Required for authentication and core features.' },
-  { title: 'Analytics Cookies', body: 'Help us understand how the platform is used.' },
-  { title: 'Preference Cookies', body: 'Remember your settings and saved filters.' },
+  { title: 'Essential cookies', body: 'Required for sign-in, session safety, and core directory features.' },
+  { title: 'Analytics cookies', body: 'Help us see how people browse listings and search so we can improve the experience.' },
+  { title: 'Preference cookies', body: 'Remember filters, location hints, and UI choices across visits.' },
 ]
 
 export default function CookiesPage() {
   return (
     <PageShell
       title="Cookie Policy"
-      description="Details about the cookies we use."
+      description="Cookies used on our listings directory—essential, analytics, and preferences."
     >
       <Card className="border-border bg-card">
         <CardContent className="p-6 space-y-4">

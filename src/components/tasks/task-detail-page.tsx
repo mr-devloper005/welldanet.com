@@ -15,8 +15,6 @@ import { cn } from "@/lib/utils";
 import { ArticleComments } from "@/components/tasks/article-comments";
 import { SchemaJsonLd } from "@/components/seo/schema-jsonld";
 import { RichContent, formatRichHtml } from "@/components/shared/rich-content";
-import { getFactoryState } from "@/design/factory/get-factory-state";
-import { getProductKind } from "@/design/factory/get-product-kind";
 import { DirectoryTaskDetailPage } from "@/design/products/directory/task-detail-page";
 import { TASK_DETAIL_PAGE_OVERRIDE_ENABLED, TaskDetailPageOverride } from "@/overrides/task-detail-page";
 
@@ -224,12 +222,9 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
     ],
   };
   const schemaPayload = articleSchema ? [articleSchema, breadcrumbSchema] : breadcrumbSchema;
-  const { recipe } = getFactoryState();
-  const productKind = getProductKind(recipe);
-
-  if (productKind === "directory" && (task === "listing" || task === "classified" || task === "profile")) {
+  if (task === "listing" || task === "classified" || task === "profile") {
     return (
-      <div className="min-h-screen bg-[#f8fbff]">
+      <div className="site-shell">
         <NavbarShell />
         <DirectoryTaskDetailPage
           task={task}
@@ -248,7 +243,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="site-shell">
       <NavbarShell />
       <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <SchemaJsonLd data={schemaPayload} />

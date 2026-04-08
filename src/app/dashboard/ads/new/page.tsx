@@ -185,11 +185,11 @@ export default function NewAdPage() {
     const stored = loadFromStorage<ClassifiedAd[]>(storageKeys.ads, [])
     saveToStorage(storageKeys.ads, [ad, ...stored])
     await new Promise((resolve) => setTimeout(resolve, 800))
-    router.push("/dashboard/ads")
+    router.push("/classifieds")
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="site-shell">
       <NavbarShell />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -197,7 +197,7 @@ export default function NewAdPage() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" asChild>
-              <Link href="/dashboard">
+              <Link href="/" aria-label="Back to home">
                 <ArrowLeft className="h-5 w-5" />
               </Link>
             </Button>
