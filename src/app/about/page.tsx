@@ -8,29 +8,32 @@ import { mockTeamMembers } from "@/data/mock-data";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 const highlights = [
-  { label: "Creators onboarded", value: "12k+" },
-  { label: "Bookmarks shared", value: "180k" },
-  { label: "Listings published", value: "8.6k" },
+  { label: "Local businesses listed", value: "8.6k+" },
+  { label: "Categories covered", value: "120+" },
+  { label: "Cities & towns", value: "340+" },
 ];
 
 const values = [
-  { title: "Curated by people", description: "We believe trusted recommendations beat endless feeds." },
-  { title: "Designed for focus", description: "Clear, calm UI helps you find the next best resource fast." },
-  { title: "Built to share", description: "Collections make collaboration and knowledge flow effortless." },
+  { title: "Trust-first listings", description: "Clear hours, contact info, and photos so people can choose local businesses with confidence." },
+  { title: "Built for search", description: "Fast filters and maps-style browsing so visitors find the right listing quickly." },
+  { title: "Fair for owners", description: "Simple tools to claim, update, and showcase your business on the directory." },
 ];
 
 export default function AboutPage() {
   return (
     <PageShell
       title={`About ${SITE_CONFIG.name}`}
-      description={`${SITE_CONFIG.name} is a modern platform for creators, communities, and curated business discovery.`}
+      description={`${SITE_CONFIG.name} is a local business directory—helping people discover listings nearby and helping owners get found.`}
       actions={
         <>
           <Button variant="outline" asChild>
-            <Link href="/team">Meet the Team</Link>
+            <Link href="/team">Our team</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/contact">Contact</Link>
           </Button>
           <Button asChild>
-            <Link href="/contact">Contact Us</Link>
+            <Link href="/listings">Browse listings</Link>
           </Button>
         </>
       }
@@ -38,13 +41,13 @@ export default function AboutPage() {
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <Card className="border-border bg-card">
           <CardContent className="space-y-4 p-6">
-            <Badge variant="secondary">Our Story</Badge>
+            <Badge variant="secondary">Our story</Badge>
             <h2 className="text-2xl font-semibold text-foreground">
-              A single home for knowledge, discovery, and community.
+              A calmer place to list and find local businesses.
             </h2>
             <p className="text-sm text-muted-foreground">
-              {SITE_CONFIG.name} brings together publishing, listings, and social bookmarking so teams can move faster
-              and keep their best resources close.
+              We focus on one job: making business listings easy to read, easy to update, and easy to discover.
+              No mixed feeds—just a directory that works for shoppers and owners.
             </p>
             <div className="grid gap-4 sm:grid-cols-3">
               {highlights.map((item) => (

@@ -1,6 +1,7 @@
 import { ContentImage } from '@/components/shared/content-image'
+import { TaskPostListingActions } from '@/components/shared/task-post-listing-actions'
 import Link from 'next/link'
-import { ArrowUpRight, ExternalLink, FileText, Mail, MapPin, Tag } from 'lucide-react'
+import { ArrowUpRight, ExternalLink, FileText, Mail, MapPin, Star, Tag } from 'lucide-react'
 import type { SitePost } from '@/lib/site-connector'
 import { CATEGORY_OPTIONS, normalizeCategory } from '@/lib/categories'
 import type { TaskKey } from '@/lib/site-config'
@@ -13,6 +14,7 @@ type ListingContent = {
   category?: string
   description?: string
   email?: string
+  price?: string
 }
 
 const stripHtml = (value?: string | null) =>
@@ -131,33 +133,49 @@ export function TaskPostCard({
           cta: 'text-slate-950',
         }
 
+    const priceLine =
+      typeof content.price === 'string' && content.price.trim()
+        ? content.price.trim()
+        : variant === 'classified'
+          ? 'From $—'
+          : 'Est. $— / mo'
+
     return (
-      <Link href={href} className={`group flex h-full flex-col overflow-hidden transition duration-300 ${cardTone.frame}`}>
-        <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
+      <div className={`group flex h-full flex-col overflow-hidden transition duration-300 ${cardTone.frame}`}>
+        <Link href={href} className="relative block aspect-[16/11] overflow-hidden bg-slate-100">
           <ContentImage src={image} alt={altText} fill sizes={imageSizes} quality={75} className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" intrinsicWidth={960} intrinsicHeight={720} />
-          <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
+          <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
             <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${cardTone.badge}`}>
               <Tag className="h-3.5 w-3.5" />
               {category}
             </span>
-            <span className="rounded-full bg-white/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900">
-              {variant === 'classified' ? 'Open now' : 'Verified'}
-            </span>
+            <div className="flex flex-col items-end gap-2">
+              <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900 shadow-sm backdrop-blur-sm">
+                {variant === 'classified' ? 'Open now' : 'Top rated'}
+              </span>
+              <TaskPostListingActions postId={String(post.id)} variant="light" />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-1 flex-col p-5">
-          <div className="flex items-center justify-between gap-3">
+        </Link>
+        <Link href={href} className="flex flex-1 flex-col p-5">
+          <div className="flex items-center gap-2 text-amber-500">
+            <Star className="h-3.5 w-3.5 fill-current" aria-hidden />
+            <span className={`text-xs font-semibold ${cardTone.muted}`}>4.8</span>
+            <span className={`text-xs ${cardTone.muted}`}>· UI preview</span>
+          </div>
+          <div className="mt-2 flex items-start justify-between gap-3">
             <h3 className={`line-clamp-2 text-xl font-semibold leading-snug ${cardTone.title}`}>{post.title}</h3>
-            <ArrowUpRight className={`h-5 w-5 shrink-0 ${cardTone.muted}`} />
+            <ArrowUpRight className={`mt-1 h-5 w-5 shrink-0 ${cardTone.muted}`} />
           </div>
+          <p className={`mt-2 text-xs font-semibold uppercase tracking-wide ${cardTone.muted}`}>{priceLine}</p>
           <p className={`mt-3 line-clamp-3 text-sm leading-7 ${cardTone.muted}`}>{getExcerpt(content.description || post.summary) || 'Explore this local listing.'}</p>
           <div className="mt-5 flex flex-wrap gap-3 text-xs">
-            {content.location ? <span className={`inline-flex items-center gap-1 ${cardTone.muted}`}><MapPin className="h-3.5 w-3.5" />{content.location}</span> : null}
+            {content.location ? <span className={`inline-flex items-center gap-1 ${cardTone.muted}`}><MapPin className="h-3.5 w-3.5" />{content.location}</span> : <span className={`inline-flex items-center gap-1 ${cardTone.muted}`}><MapPin className="h-3.5 w-3.5" />Location on request</span>}
             {content.email ? <span className={`inline-flex items-center gap-1 ${cardTone.muted}`}><Mail className="h-3.5 w-3.5" />{content.email}</span> : null}
           </div>
           <div className={`mt-auto pt-5 text-sm font-semibold ${cardTone.cta}`}>{variant === 'classified' ? 'View offer' : 'View details'}</div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     )
   }
 

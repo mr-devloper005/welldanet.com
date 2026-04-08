@@ -1,6 +1,6 @@
 ﻿"use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -36,6 +36,8 @@ import { CATEGORY_OPTIONS } from "@/lib/categories"
 import type { Listing } from "@/types"
 
 const categories = CATEGORY_OPTIONS
+
+const DASH_NEW_LISTING_PATH = "/dashboard/listings/new"
 
 const daysOfWeek = [
   "Monday",
@@ -73,6 +75,14 @@ export default function NewListingPage() {
   })
   const [isSaving, setIsSaving] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [authReady, setAuthReady] = useState(false)
+
+  useEffect(() => {
+    setAuthReady(true)
+  }, [])
+
+  const loginNextHref = `/login?next=${encodeURIComponent(DASH_NEW_LISTING_PATH)}`
+  const registerNextHref = `/register?next=${encodeURIComponent(DASH_NEW_LISTING_PATH)}`
 
   const handleAddImage = () => {
     if (imageInput.trim() && !images.includes(imageInput.trim())) {
@@ -124,7 +134,7 @@ export default function NewListingPage() {
         title: "Sign in required",
         description: "Please sign in to submit a listing.",
       })
-      router.push("/login")
+      router.push(loginNextHref)
       return null
     }
     if (!name.trim() || !description.trim() || !category || !address.trim() || !city.trim()) {
@@ -198,11 +208,47 @@ export default function NewListingPage() {
     const stored = loadFromStorage<Listing[]>(storageKeys.listings, [])
     saveToStorage(storageKeys.listings, [listing, ...stored])
     await new Promise((resolve) => setTimeout(resolve, 800))
-    router.push("/dashboard/listings")
+    router.push("/listings")
+  }
+
+  if (!authReady) {
+    return (
+      <div className="site-shell">
+        <NavbarShell />
+        <main className="mx-auto max-w-4xl px-4 py-24 text-center text-sm text-muted-foreground">
+          Loading…
+        </main>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className="site-shell">
+        <NavbarShell />
+        <main className="mx-auto max-w-lg px-4 py-16 text-center">
+          <h1 className="text-2xl font-semibold text-foreground">Sign in to add a listing</h1>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Sign in or create an account to add a business listing.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <Button asChild className="rounded-full">
+              <Link href={loginNextHref}>Sign in</Link>
+            </Button>
+            <Button asChild variant="outline" className="rounded-full">
+              <Link href={registerNextHref}>Create account</Link>
+            </Button>
+          </div>
+          <Button variant="ghost" className="mt-6" asChild>
+            <Link href="/listings">Back to listings</Link>
+          </Button>
+        </main>
+      </div>
+    )
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="site-shell">
       <NavbarShell />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -210,7 +256,7 @@ export default function NewListingPage() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" asChild>
-              <Link href="/dashboard">
+              <Link href="/" aria-label="Back to home">
                 <ArrowLeft className="h-5 w-5" />
               </Link>
             </Button>

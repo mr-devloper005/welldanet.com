@@ -1,10 +1,10 @@
 export const siteIdentity = {
   code: process.env.NEXT_PUBLIC_SITE_CODE || 'welldanet',
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'WellDanet',
-  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Business listing platform',
+  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Listing-first discovery directory',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'A listing-first business discovery platform for browsing services, businesses, spaces, and location-based opportunities through a cleaner browsing experience.',
+    'A premium listing directory for scanning businesses, services, and categories quickly—with clear CTAs to explore or submit listings.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'welldanet.com',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://welldanet.com',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',
