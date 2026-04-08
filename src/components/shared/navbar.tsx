@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -95,9 +95,24 @@ export function Navbar() {
   }
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [homeNavSolid, setHomeNavSolid] = useState(false)
   const pathname = usePathname()
   const { isAuthenticated } = useAuth()
-  const { recipe } = getFactoryState()
+  const { recipe, productKind } = getFactoryState()
+  const isHome = pathname === '/'
+
+  useEffect(() => {
+    if (!isHome || productKind !== 'directory') {
+      setHomeNavSolid(false)
+      return
+    }
+    const onScroll = () => {
+      setHomeNavSolid(window.scrollY > 72)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [isHome, productKind])
 
   const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
   const primaryNavigation = navigation.slice(0, 5)
@@ -117,72 +132,146 @@ export function Navbar() {
         : 'text-slate-600 hover:bg-slate-100'
     const pillActive = cn('shadow-[var(--shadow-soft)]', palette.cta)
 
+    /** Home hero (directory only): transparent bar over image; after scroll, white bar + search. */
+    const homeOverlay = isHome && !homeNavSolid && productKind === 'directory'
+
     return (
-      <header data-mobile-nav="true" className={cn('sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-xl', palette.shell)}>
+      <header
+        data-mobile-nav="true"
+        data-home-overlay={homeOverlay ? 'true' : undefined}
+        className={cn(
+          'left-0 right-0 z-50 w-full transition-[background-color,backdrop-filter,border-color] duration-300',
+          homeOverlay
+            ? 'fixed top-0 border-b border-transparent bg-transparent'
+            : cn('sticky top-0', palette.shell),
+        )}
+      >
         <nav className="site-container flex min-h-[4.25rem] flex-col gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
-              <img src="/logo-welldanet.svg" alt={`${SITE_CONFIG.name} logo`} width="190" height="46" className="h-8 w-auto sm:h-9" />
+              <img
+                src={homeOverlay ? '/logo-welldanet-light.svg' : '/logo-welldanet.svg'}
+                alt={`${SITE_CONFIG.name} logo`}
+                width="190"
+                height="46"
+                className="h-8 w-auto sm:h-9"
+              />
             </Link>
 
-            <div className="hidden min-w-0 flex-1 px-2 xl:block">
-              <div className="mx-auto flex h-11 w-full max-w-[560px] items-center rounded-full border border-slate-200 bg-[#f8f9fc] px-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-                <Link href="/search" className="flex min-w-0 flex-1 items-center rounded-full px-3 text-xs text-slate-500">
-                  tacos, cheap dinner..
-                </Link>
-                <div className="h-5 w-px bg-slate-200" />
-                <Link href="/search" className="flex min-w-0 flex-1 items-center rounded-full px-3 text-xs text-slate-500">
-                  Location
-                </Link>
-                <Link href="/search" className="ml-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#2f6df6] text-white hover:bg-[#1f56d8]">
-                  <Search className="h-3.5 w-3.5" />
-                </Link>
+            {!homeOverlay ? (
+              <div className="hidden min-w-0 flex-1 px-2 xl:block">
+                <div className="mx-auto flex h-11 w-full max-w-[560px] items-center rounded-full border border-slate-200 bg-[#f8f9fc] px-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+                  <Link href="/search" className="flex min-w-0 flex-1 items-center rounded-full px-3 text-xs text-slate-500">
+                    tacos, cheap dinner..
+                  </Link>
+                  <div className="h-5 w-px bg-slate-200" />
+                  <Link href="/search" className="flex min-w-0 flex-1 items-center rounded-full px-3 text-xs text-slate-500">
+                    Location
+                  </Link>
+                  <Link
+                    href="/search"
+                    className="ml-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#2f6df6] text-white hover:bg-[#1f56d8]"
+                  >
+                    <Search className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="hidden flex-1 xl:block" aria-hidden />
+            )}
 
             <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
-              <Link href="/create/listing" className="hidden text-xs font-medium text-slate-600 hover:text-slate-950 lg:inline-flex">Write a Review</Link>
+              <Link
+                href="/create/listing"
+                className={cn(
+                  'hidden text-xs font-medium lg:inline-flex',
+                  homeOverlay ? 'text-white/90 hover:text-white' : 'text-slate-600 hover:text-slate-950',
+                )}
+              >
+                Write a Review
+              </Link>
               {isAuthenticated ? (
                 <>
-                  <Button size="sm" asChild className={cn('rounded-full px-3 sm:px-4', palette.cta)}>
+                  <Button
+                    size="sm"
+                    asChild
+                    className={cn(
+                      'rounded-full px-3 sm:px-4',
+                      homeOverlay
+                        ? 'border border-white/50 bg-transparent text-white hover:bg-white/10 hover:text-white'
+                        : palette.cta,
+                    )}
+                  >
                     <SubmitListingLink className="inline-flex items-center gap-1">
                       <Plus className="h-4 w-4 sm:mr-0.5" />
                       <span className="hidden sm:inline">Submit listing</span>
                       <span className="sr-only sm:hidden">Submit listing</span>
                     </SubmitListingLink>
                   </Button>
-                  <NavbarAuthControls />
+                  <NavbarAuthControls overlay={homeOverlay} />
                 </>
               ) : (
                 <>
-                  <Button variant="ghost" size="sm" asChild className="hidden h-8 rounded-full border border-slate-300 px-4 text-xs sm:inline-flex">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className={cn(
+                      'hidden h-8 rounded-full px-4 text-xs sm:inline-flex',
+                      homeOverlay ? 'border border-white/45 text-white hover:bg-white/10 hover:text-white' : 'border border-slate-300',
+                    )}
+                  >
                     <Link href="/login">Log In</Link>
                   </Button>
-                  <Button size="sm" asChild className="hidden h-8 rounded-full bg-[#2f6df6] px-4 text-xs text-white hover:bg-[#1f56d8] sm:inline-flex">
+                  <Button
+                    size="sm"
+                    asChild
+                    className={cn(
+                      'hidden h-8 rounded-full px-4 text-xs sm:inline-flex',
+                      homeOverlay
+                        ? 'border border-white/55 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20'
+                        : 'bg-[#2f6df6] text-white hover:bg-[#1f56d8]',
+                    )}
+                  >
                     <Link href="/register">Sign Up</Link>
                   </Button>
                 </>
               )}
-              <Button variant="ghost" size="icon" className="rounded-full lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn('rounded-full lg:hidden', homeOverlay && 'text-white hover:bg-white/10 hover:text-white')}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
                 {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>
             </div>
           </div>
 
-          <div className="xl:hidden">
-            <Suspense fallback={<div className="h-9 w-full animate-pulse rounded-xl bg-black/5" />}>
-              <DirectoryNavbarCenter pillClass={pillIdle} activeClass={pillActive} />
-            </Suspense>
-          </div>
+          {!homeOverlay ? (
+            <div className="xl:hidden">
+              <Suspense fallback={<div className="h-9 w-full animate-pulse rounded-xl bg-black/5" />}>
+                <DirectoryNavbarCenter pillClass={pillIdle} activeClass={pillActive} />
+              </Suspense>
+            </div>
+          ) : null}
         </nav>
 
         {isMobileMenuOpen && (
-          <div className={cn('border-t', palette.mobile)}>
+          <div
+            className={cn(
+              'border-t',
+              homeOverlay ? 'border-white/15 bg-slate-950/96 text-white backdrop-blur-xl' : palette.mobile,
+            )}
+          >
             <div className="site-container space-y-2 px-4 py-4 sm:px-6">
               <Link
                 href="/search"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold', palette.search)}
+                className={cn(
+                  'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold',
+                  homeOverlay ? 'bg-white/10 text-white' : palette.search,
+                )}
               >
                 <Search className="h-4 w-4" />
                 Search
@@ -196,7 +285,13 @@ export function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
                       'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors',
-                      isActive ? 'bg-foreground text-background' : palette.post,
+                      homeOverlay
+                        ? isActive
+                          ? 'bg-white text-slate-950'
+                          : 'bg-white/10 text-white hover:bg-white/15'
+                        : isActive
+                          ? 'bg-foreground text-background'
+                          : palette.post,
                     )}
                   >
                     <item.icon className="h-5 w-5" />

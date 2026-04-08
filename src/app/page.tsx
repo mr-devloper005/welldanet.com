@@ -112,7 +112,7 @@ function DirectoryHome({ primaryTask: _primaryTask, enabledTasks: _enabledTasks,
   return (
     <main className="site-shell">
       <section className="listing-hero-bg relative overflow-hidden">
-        <div className="site-container px-4 pb-16 pt-14 sm:px-6 lg:px-8 lg:pb-24 lg:pt-20">
+        <div className="site-container px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pb-24 lg:pt-36">
           <div className="mx-auto max-w-5xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/90 ring-1 ring-white/30 backdrop-blur-sm">
               <Compass className="h-3.5 w-3.5" />
