@@ -126,11 +126,11 @@ export function TaskPostCard({
           cta: 'text-[#1f2617]',
         }
       : {
-          frame: 'rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_18px_44px_rgba(15,23,42,0.08)] hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(15,23,42,0.14)]',
-          badge: 'bg-slate-950 text-white',
+          frame: 'rounded-[1.45rem] border border-slate-200 bg-white shadow-[0_16px_36px_rgba(10,29,64,0.08)] hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(10,29,64,0.14)]',
+          badge: 'bg-[#2f6df6] text-white',
           muted: 'text-slate-600',
           title: 'text-slate-950',
-          cta: 'text-slate-950',
+          cta: 'text-[#1f56d8]',
         }
 
     const priceLine =
@@ -150,7 +150,7 @@ export function TaskPostCard({
               {category}
             </span>
             <div className="flex flex-col items-end gap-2">
-              <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900 shadow-sm backdrop-blur-sm">
+              <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#1f56d8] shadow-sm backdrop-blur-sm">
                 {variant === 'classified' ? 'Open now' : 'Top rated'}
               </span>
               <TaskPostListingActions postId={String(post.id)} variant="light" />

@@ -118,32 +118,30 @@ export function Navbar() {
     const pillActive = cn('shadow-[var(--shadow-soft)]', palette.cta)
 
     return (
-      <header data-mobile-nav="true" className={cn('sticky top-0 z-50 w-full border-b border-transparent', palette.shell)}>
-        <nav className="site-container flex min-h-[4.25rem] flex-col gap-3 px-4 py-3 sm:px-6 lg:px-8">
+      <header data-mobile-nav="true" className={cn('sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-xl', palette.shell)}>
+        <nav className="site-container flex min-h-[4.25rem] flex-col gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
-              <div className={cn('flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden p-1.5 sm:h-11 sm:w-11', palette.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
-              </div>
-              <div className="min-w-0">
-                <span className="block truncate text-base font-semibold sm:text-lg">{SITE_CONFIG.name}</span>
-                <span className="block truncate text-[10px] uppercase tracking-[0.22em] opacity-60">{siteContent.navbar.tagline}</span>
-              </div>
+              <img src="/logo-welldanet.svg" alt={`${SITE_CONFIG.name} logo`} width="190" height="46" className="h-8 w-auto sm:h-9" />
             </Link>
 
-            <div className="hidden min-w-0 flex-1 px-2 lg:block">
-              <Suspense fallback={<div className="mx-auto h-10 max-w-3xl animate-pulse rounded-full bg-black/5" />}>
-                <DirectoryNavbarCenter pillClass={pillIdle} activeClass={pillActive} />
-              </Suspense>
+            <div className="hidden min-w-0 flex-1 px-2 xl:block">
+              <div className="mx-auto flex h-11 w-full max-w-[560px] items-center rounded-full border border-slate-200 bg-[#f8f9fc] px-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+                <Link href="/search" className="flex min-w-0 flex-1 items-center rounded-full px-3 text-xs text-slate-500">
+                  tacos, cheap dinner..
+                </Link>
+                <div className="h-5 w-px bg-slate-200" />
+                <Link href="/search" className="flex min-w-0 flex-1 items-center rounded-full px-3 text-xs text-slate-500">
+                  Location
+                </Link>
+                <Link href="/search" className="ml-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#2f6df6] text-white hover:bg-[#1f56d8]">
+                  <Search className="h-3.5 w-3.5" />
+                </Link>
+              </div>
             </div>
 
             <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
-              <Button variant="ghost" size="sm" asChild className="hidden rounded-full md:inline-flex">
-                <Link href="/search" className="gap-2">
-                  <Search className="h-4 w-4" />
-                  <span className="hidden lg:inline">Search</span>
-                </Link>
-              </Button>
+              <Link href="/create/listing" className="hidden text-xs font-medium text-slate-600 hover:text-slate-950 lg:inline-flex">Write a Review</Link>
               {isAuthenticated ? (
                 <>
                   <Button size="sm" asChild className={cn('rounded-full px-3 sm:px-4', palette.cta)}>
@@ -156,9 +154,14 @@ export function Navbar() {
                   <NavbarAuthControls />
                 </>
               ) : (
-                <Button variant="ghost" size="sm" asChild className="hidden rounded-full sm:inline-flex">
-                  <Link href="/login">Sign in</Link>
-                </Button>
+                <>
+                  <Button variant="ghost" size="sm" asChild className="hidden h-8 rounded-full border border-slate-300 px-4 text-xs sm:inline-flex">
+                    <Link href="/login">Log In</Link>
+                  </Button>
+                  <Button size="sm" asChild className="hidden h-8 rounded-full bg-[#2f6df6] px-4 text-xs text-white hover:bg-[#1f56d8] sm:inline-flex">
+                    <Link href="/register">Sign Up</Link>
+                  </Button>
+                </>
               )}
               <Button variant="ghost" size="icon" className="rounded-full lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                 {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -166,7 +169,7 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="lg:hidden">
+          <div className="xl:hidden">
             <Suspense fallback={<div className="h-9 w-full animate-pulse rounded-xl bg-black/5" />}>
               <DirectoryNavbarCenter pillClass={pillIdle} activeClass={pillActive} />
             </Suspense>

@@ -55,7 +55,7 @@ export function DirectoryTaskDetailPage({
 
         <section className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
           <div>
-            <div className="overflow-hidden rounded-[2.2rem] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+            <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_20px_56px_rgba(10,29,64,0.1)]">
               <div className="relative h-[420px] overflow-hidden bg-slate-100">
                 <ContentImage src={images[0]} alt={post.title} fill className="object-cover" />
               </div>
@@ -70,9 +70,9 @@ export function DirectoryTaskDetailPage({
               ) : null}
             </div>
 
-            <div className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-7 shadow-[0_20px_60px_rgba(15,23,42,0.06)]">
+            <div className="mt-8 rounded-[1.8rem] border border-slate-200 bg-white p-7 shadow-[0_18px_46px_rgba(10,29,64,0.08)]">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">About this {task}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Structured details instead of a generic content block.</h2>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#102043]">Structured details instead of a generic content block.</h2>
               <p className="mt-4 text-sm leading-8 text-slate-600">{description}</p>
               {highlights.length ? (
                 <div className="mt-6 grid gap-3 md:grid-cols-2">
@@ -87,13 +87,13 @@ export function DirectoryTaskDetailPage({
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_rgba(15,23,42,0.08)]">
+            <div className="rounded-[1.8rem] border border-slate-200 bg-white p-7 shadow-[0_20px_54px_rgba(10,29,64,0.1)]">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">{category || taskLabel}</p>
                   <h1 className="mt-3 text-4xl font-semibold tracking-[-0.05em]">{post.title}</h1>
                 </div>
-                <span className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#2f6df6] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white">
                   <ShieldCheck className="h-3.5 w-3.5" /> Verified
                 </span>
               </div>
@@ -106,7 +106,7 @@ export function DirectoryTaskDetailPage({
               </div>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                {website ? <a href={website} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800">Visit website <ArrowRight className="h-4 w-4" /></a> : null}
+                {website ? <a href={website} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#2f6df6] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1f56d8]">Visit website <ArrowRight className="h-4 w-4" /></a> : null}
                 <Link href={taskRoute} className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-100">Browse more</Link>
               </div>
             </div>

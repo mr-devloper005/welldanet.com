@@ -48,10 +48,10 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
 
   const ui = {
     muted: 'text-slate-600',
-    panel: 'border border-slate-200 bg-white',
-    soft: 'border border-slate-200 bg-slate-50',
+    panel: 'border border-slate-200 bg-white shadow-[0_16px_40px_rgba(12,30,66,0.08)]',
+    soft: 'border border-slate-200 bg-[#f6f8fc]',
     input: 'border border-slate-200 bg-white text-slate-950',
-    button: 'bg-slate-950 text-white hover:bg-slate-800',
+    button: 'bg-[#2f6df6] text-white hover:bg-[#1f56d8]',
   }
 
   return (
@@ -91,7 +91,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
 
         {task === 'listing' ? (
           <section className="mb-12 space-y-8">
-            <div className={`site-surface-card rounded-[var(--site-radius)] p-7 sm:p-8 ${ui.panel}`}>
+            <div className={`site-surface-card rounded-[2rem] p-7 sm:p-8 ${ui.panel}`}>
               <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] opacity-70">
                 <Icon className="h-4 w-4" /> {taskConfig?.label || task}
               </div>
@@ -99,7 +99,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
                 {task === 'listing' && categoryDisplayName ? `${categoryDisplayName} listings` : taskConfig?.description || 'Latest posts'}
               </h1>
               {task === 'listing' && categoryDisplayName ? (
-                <p className="mt-2 text-sm font-medium text-primary">Filtered by category · <Link href="/listings" className="underline-offset-4 hover:underline">Clear</Link></p>
+                <p className="mt-2 text-sm font-medium text-[#2f6df6]">Filtered by category · <Link href="/listings" className="underline-offset-4 hover:underline">Clear</Link></p>
               ) : null}
               <p className={`mt-4 max-w-2xl text-sm leading-relaxed ${ui.muted}`}>{siteContent.hero.description}</p>
               <div className="mt-6 flex flex-wrap gap-3">
@@ -113,7 +113,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
             </div>
 
             {task === 'listing' ? (
-              <div className={`site-surface-card rounded-[var(--site-radius)] p-5 sm:p-6 ${ui.soft}`}>
+              <div className={`site-surface-card rounded-[1.7rem] p-5 sm:p-6 ${ui.soft}`}>
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <p className={`text-xs font-semibold uppercase tracking-[0.2em] ${ui.muted}`}>Categories</p>

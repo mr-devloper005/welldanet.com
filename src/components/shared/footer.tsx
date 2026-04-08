@@ -58,27 +58,22 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] text-slate-950">
+    <footer className="border-t border-slate-200 bg-[#f3f5f8] text-slate-900">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <div className="h-11 w-11 overflow-hidden rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
-              </div>
-              <div>
-                <span className="block text-lg font-semibold">{SITE_CONFIG.name}</span>
-                <span className="text-xs uppercase tracking-[0.22em] text-slate-500">{siteContent.footer.tagline}</span>
-              </div>
+              <img src="/logo-welldanet.svg" alt={`${SITE_CONFIG.name} logo`} width="190" height="46" className="h-9 w-auto" />
             </Link>
-            <p className="mt-5 max-w-sm text-sm leading-7 text-slate-600">{SITE_CONFIG.description}</p>
+            <p className="mt-4 text-xs uppercase tracking-[0.22em] text-slate-500">{siteContent.footer.tagline}</p>
+            <p className="mt-3 max-w-sm text-sm leading-7 text-slate-600">{SITE_CONFIG.description}</p>
           </div>
           {(['platform', 'company', 'resources', 'legal'] as const).map((section) => (
             <div key={section}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">{footerColumnHeadings[section]}</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{footerColumnHeadings[section]}</h3>
               <ul className="mt-5 space-y-3 text-sm text-slate-600">
                 {footerLinks[section].map((item: any) => (
-                  <li key={item.name}><Link href={item.href} className="flex items-center gap-2 hover:text-slate-950">{item.icon ? <item.icon className="h-4 w-4" /> : null}{item.name}</Link></li>
+                  <li key={item.name}><Link href={item.href} className="flex items-center gap-2 transition-colors hover:text-[#1f56d8]">{item.icon ? <item.icon className="h-4 w-4" /> : null}{item.name}</Link></li>
                 ))}
               </ul>
             </div>

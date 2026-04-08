@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Bookmark, Building2, Compass, FileText, Image as ImageIcon, LayoutGrid, Tag, User } from 'lucide-react'
+import { ArrowRight, Bookmark, Building2, Compass, FileText, Image as ImageIcon, LayoutGrid, MapPin, Search, Tag, User } from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
@@ -89,7 +89,7 @@ function getDirectoryTone(_brandPack: string) {
   }
 }
 
-function DirectoryHome({ primaryTask: _primaryTask, enabledTasks, listingPosts, classifiedPosts, profilePosts: _profilePosts, brandPack }: {
+function DirectoryHome({ primaryTask: _primaryTask, enabledTasks: _enabledTasks, listingPosts, classifiedPosts, profilePosts: _profilePosts, brandPack }: {
   primaryTask?: EnabledTask
   enabledTasks: EnabledTask[]
   listingPosts: SitePost[]
@@ -108,76 +108,40 @@ function DirectoryHome({ primaryTask: _primaryTask, enabledTasks, listingPosts, 
     recommended = listingSource.slice(0, Math.min(6, listingSource.length))
   }
   const featuredHero = listingSource[0]
-  const quickRoutes = enabledTasks.slice(0, 4)
 
   return (
     <main className="site-shell">
-      <section className={`relative overflow-hidden ${tone.hero}`}>
-        <div className="site-container px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div>
-              <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-                <Compass className="h-3.5 w-3.5" />
-                {hero.badge}
-              </span>
-              <h1 className={`mt-6 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl ${tone.title}`}>
-                {hero.title[0]} <span className="text-primary">{hero.title[1]}</span>
-              </h1>
-              <p className={`mt-6 max-w-2xl text-base leading-relaxed ${tone.muted}`}>{hero.description}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href={hero.primaryCta.href} className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5 ${tone.action}`}>
-                  {hero.primaryCta.label}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <SubmitListingLink className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors duration-200 ${tone.actionAlt}`}>
-                  {hero.secondaryCta.label}
-                </SubmitListingLink>
-              </div>
-              <div className="mt-10 grid gap-3 sm:grid-cols-3">
-                {[
-                  ['Trust-ready cards', 'Badges, ratings UI, saves'],
-                  ['Fast grid scan', 'Pinterest / Yelp hybrid rhythm'],
-                  ['Clear CTAs', 'Explore · Submit listing'],
-                ].map(([label, value]) => (
-                  <div key={label} className={`site-surface-card rounded-[var(--site-radius)] p-4 ${tone.soft}`}>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">{label}</p>
-                    <p className={`mt-2 text-sm font-semibold ${tone.title}`}>{value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <section className="listing-hero-bg relative overflow-hidden">
+        <div className="site-container px-4 pb-16 pt-14 sm:px-6 lg:px-8 lg:pb-24 lg:pt-20">
+          <div className="mx-auto max-w-5xl text-center">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/90 ring-1 ring-white/30 backdrop-blur-sm">
+              <Compass className="h-3.5 w-3.5" />
+              {hero.badge}
+            </span>
+            <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              {hero.title[0]} <span className="text-[#2f6df6]">{hero.title[1]}</span>
+            </h1>
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/85 sm:text-base">{hero.description}</p>
 
-            <div className="relative">
-              <div
-                className={`rounded-[var(--site-radius)] border border-white/40 bg-white/55 p-6 shadow-[var(--shadow-soft)] backdrop-blur-md lg:p-8 ${tone.panel}`}
-              >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">{hero.featureCardBadge}</p>
-                <h2 className={`mt-3 text-2xl font-semibold tracking-tight sm:text-3xl ${tone.title}`}>{hero.featureCardTitle}</h2>
-                <p className={`mt-4 text-sm leading-relaxed ${tone.muted}`}>{hero.featureCardDescription}</p>
-                {featuredHero ? (
-                  <Link href={getTaskHref(listingTaskKey, featuredHero.slug)} className={`mt-6 block overflow-hidden rounded-2xl border border-black/5 ${tone.soft}`}>
-                    <div className="relative aspect-[16/10]">
-                      <ContentImage src={getPostImage(featuredHero)} alt={featuredHero.title} fill className="object-cover transition-transform duration-500 hover:scale-[1.03]" />
-                    </div>
-                    <div className="p-4">
-                      <p className="text-xs font-semibold uppercase tracking-wider opacity-70">Featured</p>
-                      <p className={`mt-1 font-semibold ${tone.title}`}>{featuredHero.title}</p>
-                    </div>
-                  </Link>
-                ) : null}
-                <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                  {quickRoutes.map((task) => {
-                    const Icon = taskIcons[task.key as TaskKey] || LayoutGrid
-                    return (
-                      <Link key={task.key} href={task.route} className={`rounded-2xl p-4 transition-colors duration-200 ${tone.soft}`}>
-                        <Icon className="h-5 w-5" />
-                        <h3 className="mt-3 text-sm font-semibold">{task.label}</h3>
-                        <p className={`mt-1 text-xs leading-relaxed ${tone.muted}`}>{task.description}</p>
-                      </Link>
-                    )
-                  })}
-                </div>
+            <form action="/search" className="mx-auto mt-8 flex max-w-4xl flex-col items-stretch overflow-hidden rounded-full border border-white/20 bg-white/95 p-1.5 shadow-[0_20px_60px_rgba(4,19,46,0.35)] sm:flex-row">
+              <div className="flex min-h-[50px] flex-1 items-center gap-2 px-4 text-left text-sm text-slate-500">
+                <Search className="h-4 w-4 text-slate-400" />
+                <input name="q" placeholder="tacos, cheap dinner, Max's" className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400" />
               </div>
+              <div className="h-px bg-slate-200 sm:h-auto sm:w-px" />
+              <div className="flex min-h-[50px] flex-1 items-center gap-2 px-4 text-left text-sm text-slate-500">
+                <MapPin className="h-4 w-4 text-slate-400" />
+                <input name="location" placeholder="San Francisco, CA" className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400" />
+              </div>
+              <button type="submit" className="inline-flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#2f6df6] text-white transition-colors hover:bg-[#1f56d8]">
+                <Search className="h-4 w-4" />
+              </button>
+            </form>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-white/75">
+              {['Trending', 'Sushi', 'Cocktails', 'Plumbers', 'Delivery'].map((item) => (
+                <span key={item}>{item}</span>
+              ))}
             </div>
           </div>
         </div>
@@ -221,15 +185,23 @@ function DirectoryHome({ primaryTask: _primaryTask, enabledTasks, listingPosts, 
 
       <HomeListingDirectoryTabs posts={listingSource} taskKey={listingTaskKey} tabLabel={listify.directoriesTitle} />
 
-      <section className="site-container px-4 py-12 sm:px-6 lg:px-8">
-        <div className="site-surface-card flex flex-col gap-4 rounded-[var(--site-radius)] bg-primary/10 px-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-10">
-          <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">Promo</p>
-            <p className="mt-2 text-lg font-semibold text-foreground sm:text-xl">{listify.promoText}</p>
+      <section className="site-container px-4 py-14 sm:px-6 lg:px-8">
+        <div className="listing-promo-panel site-surface-card overflow-hidden rounded-[2rem] px-6 py-10 text-white sm:px-10">
+          <div className="grid items-center gap-8 md:grid-cols-[1fr_0.9fr]">
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">Own a local business?</p>
+              <p className="mt-3 text-2xl font-semibold text-white sm:text-4xl">Claim your free {SITE_CONFIG.name} page today.</p>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-white/85">{listify.promoText}</p>
+              <SubmitListingLink className="mt-6 inline-flex shrink-0 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#1b3f98] transition-transform duration-200 hover:-translate-y-0.5">
+                Claim Your Business
+              </SubmitListingLink>
+            </div>
+            <div className="relative mx-auto hidden w-full max-w-md overflow-hidden rounded-[1.6rem] border border-white/30 shadow-[0_26px_60px_rgba(9,26,64,0.25)] md:block">
+              <div className="relative aspect-[4/3]">
+                <ContentImage src={featuredHero ? getPostImage(featuredHero) : '/placeholder.svg?height=680&width=900'} alt="Business owner section visual" fill className="object-cover" />
+              </div>
+            </div>
           </div>
-          <SubmitListingLink className="inline-flex shrink-0 items-center justify-center rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition-transform duration-200 hover:-translate-y-0.5">
-            Submit listing
-          </SubmitListingLink>
         </div>
       </section>
 
