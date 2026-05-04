@@ -1,5 +1,5 @@
 export const siteIdentity = {
-  code: process.env.NEXT_PUBLIC_SITE_CODE || 'welldanet',
+  code: process.env.NEXT_PUBLIC_SITE_CODE || 'wd2m8q7v4x',
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'WellDanet',
   tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Listing-first discovery directory',
   description:
