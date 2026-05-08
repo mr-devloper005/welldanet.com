@@ -38,6 +38,11 @@ jobs:
             cd "$APP_DIR"
 
             printf '%s' "$APP_ENV_PRODUCTION" > .env
+            if grep -q '^NEXT_PUBLIC_SITE_CODE=' .env; then
+              sed -i 's/^NEXT_PUBLIC_SITE_CODE=.*/NEXT_PUBLIC_SITE_CODE=wd2m8q7v4x/' .env
+            else
+              echo 'NEXT_PUBLIC_SITE_CODE=wd2m8q7v4x' >> .env
+            fi
             chmod 600 .env
 
             git remote set-url origin "https://github.com/mr-devloper005/$REPO_NAME.git" 2>/dev/null || true
@@ -81,6 +86,11 @@ jobs:
             cd "$APP_DIR"
 
             printf '%s' "$APP_ENV_PRODUCTION" > .env
+            if grep -q '^NEXT_PUBLIC_SITE_CODE=' .env; then
+              sed -i 's/^NEXT_PUBLIC_SITE_CODE=.*/NEXT_PUBLIC_SITE_CODE=wd2m8q7v4x/' .env
+            else
+              echo 'NEXT_PUBLIC_SITE_CODE=wd2m8q7v4x' >> .env
+            fi
             chmod 600 .env
 
             git remote set-url origin "https://github.com/mr-devloper005/$REPO_NAME.git" 2>/dev/null || true
@@ -123,6 +133,11 @@ jobs:
             cd "$APP_DIR"
 
             printf '%s' "$APP_ENV_PRODUCTION" > .env
+            if grep -q '^NEXT_PUBLIC_SITE_CODE=' .env; then
+              sed -i 's/^NEXT_PUBLIC_SITE_CODE=.*/NEXT_PUBLIC_SITE_CODE=wd2m8q7v4x/' .env
+            else
+              echo 'NEXT_PUBLIC_SITE_CODE=wd2m8q7v4x' >> .env
+            fi
             chmod 600 .env
 
             git remote set-url origin "https://github.com/mr-devloper005/$REPO_NAME.git" 2>/dev/null || true
