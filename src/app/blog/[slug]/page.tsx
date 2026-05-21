@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE_CONFIG } from "@/lib/site-config";
 
+
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     path: "/blog",
